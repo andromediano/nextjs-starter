@@ -24,17 +24,16 @@
 .DS_Store
 *.pem
 
-# Backup
-*.bak
-
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# Local env files
 # env files (can opt-in for committing if needed)
 .env*
+!.env*.example
 
 # vercel
 .vercel
@@ -42,3 +41,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Podman
+pod.yaml
+secret.yaml
+
+/src/generated/prisma

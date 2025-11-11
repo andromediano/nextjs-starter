@@ -7,3 +7,6 @@ coverage
 
 # Ignore package manager lock files
 pnpm-lock.yaml
+
+# Ignore markdown
+**/*.md

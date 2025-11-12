@@ -17,7 +17,7 @@ export default async function Home() {
         <ModeToggle />
         {session && (
           <div>
-            {session.user.name} <a href="/api/auth/signout">로그아웃</a>
+            {session.user.name} <b>로그아웃</b>
           </div>
         )}
         <h1>사용자 목록 (Server Component)</h1>

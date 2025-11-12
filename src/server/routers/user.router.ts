@@ -1,38 +1,24 @@
 import { z } from "zod";
+import { UserCreateInputObjectSchema } from "@/generated/zod/schemas";
+import { prisma } from "@/lib/prisma";
 import { router, publicProcedure } from "@/server/trpc";
 
 export const userRouter = router({
-  getById: publicProcedure
-    .input(z.object({ id: z.string() }))
-    .query(async ({ input }) => {
-      // DB 조회 로직
-      return {
-        id: input.id,
-        name: "홍길동",
-        email: "hong@example.com",
-      };
-    }),
+  getById: publicProcedure.input(z.string()).query(async ({ input }) => {
+    return await prisma.user.findFirstOrThrow({
+      where: { id: input },
+    });
+  }),
 
   list: publicProcedure.query(async () => {
-    // 사용자 목록 조회
-    return [
-      { id: "1", name: "홍길동", email: "hong@example.com" },
-      { id: "2", name: "김철수", email: "kim@example.com" },
-    ];
+    return await prisma.user.findMany();
   }),
 
   create: publicProcedure
-    .input(
-      z.object({
-        name: z.string().min(1),
-        email: z.string().email(),
-      }),
-    )
+    .input(UserCreateInputObjectSchema)
     .mutation(async ({ input }) => {
-      // DB에 사용자 생성
-      return {
-        id: Math.random().toString(),
-        ...input,
-      };
+      await prisma.user.create({
+        data: input,
+      });
     }),
 });

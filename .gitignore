@@ -46,4 +46,4 @@ next-env.d.ts
 pod.yaml
 secret.yaml
 
-/src/generated/prisma
+/src/generated

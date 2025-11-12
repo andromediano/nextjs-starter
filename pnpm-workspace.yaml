@@ -1,6 +1,7 @@
 onlyBuiltDependencies:
-  - "@prisma/client"
-  - "@prisma/engines"
+  - '@prisma/client'
+  - '@prisma/engines'
   - prisma
+  - prisma-zod-generator
   - sharp
   - unrs-resolver

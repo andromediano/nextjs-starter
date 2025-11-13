@@ -11,10 +11,21 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
-import { UserCreateInputObjectZodSchema } from "@/generated/zod/schemas";
+//import { UserCreateInputObjectZodSchema } from "@/generated/zod/schemas";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { useTRPC } from "@/trpc/client";
+
+const UserCreateInputObjectZodSchema = z.object({
+  name: z
+    .string()
+    .min(5, "Bug title must be at least 5 characters.")
+    .max(32, "Bug title must be at most 32 characters."),
+  email: z
+    .string()
+    .min(20, "Description must be at least 20 characters.")
+    .max(100, "Description must be at most 100 characters."),
+});
 
 type UserFormData = z.infer<typeof UserCreateInputObjectZodSchema>;
 
@@ -62,8 +73,8 @@ export default function Form() {
         </FieldGroup>
         <FieldGroup>
           <Field>
-            <Button type="submit" disabled={createUser.isLoading}>
-              {createUser.isLoading ? <Spinner /> : ""}
+            <Button type="submit" disabled={createUser.isPending}>
+              {createUser.isPending ? <Spinner /> : ""}
               Update User
             </Button>
           </Field>

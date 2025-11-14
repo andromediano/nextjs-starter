@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
@@ -121,9 +122,14 @@ export default function Form() {
               onClick={() => form.reset()}>
               Reset
             </Button>
-            <Button type="submit" form="create-user-form">
+            <Button
+              type="submit"
+              form="create-user-form"
+              disabled={createUser.isPending}>
+              {createUser.isPending ? <Spinner /> : ""}
               Submit
             </Button>
+            <Link href={"/users"}>목록</Link>
           </Field>
         </CardFooter>
       </Card>

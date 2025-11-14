@@ -10,7 +10,6 @@ export const UserSchema = z.object({
 });
 
 export const CreateUserSchema = z.object({
-  id: z.string().optional(),
   name: z
     .string()
     .min(3, "Bug title must be at least 5 characters.")

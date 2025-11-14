@@ -1,5 +1,5 @@
-import { api } from "@/trpc/server";
 import Link from "next/link";
+import { api } from "@/trpc/server";
 
 export default async function Page() {
   const users = await api.user.list();

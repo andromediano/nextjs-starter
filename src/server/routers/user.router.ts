@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { UserCreateInputObjectSchema } from "@/generated/zod/schemas";
 import { prisma } from "@/lib/prisma";
+import { CreateUserSchema, UpdateUserSchema } from "@/schemas/user.schema";
 import { router, publicProcedure } from "@/server/trpc";
 
 export const userRouter = router({
@@ -15,10 +15,23 @@ export const userRouter = router({
   }),
 
   create: publicProcedure
-    .input(UserCreateInputObjectSchema)
+    .input(CreateUserSchema)
     .mutation(async ({ input }) => {
       await prisma.user.create({
         data: input,
+      });
+    }),
+
+  update: publicProcedure
+    .input(UpdateUserSchema)
+    .mutation(async ({ input }) => {
+      const { id, email, name } = input;
+      await prisma.user.update({
+        where: { id },
+        data: {
+          email,
+          name,
+        },
       });
     }),
 });

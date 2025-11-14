@@ -2,11 +2,20 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
   Field,
+  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
@@ -19,13 +28,12 @@ import { CreateUserSchema } from "@/schemas/user.schema";
 type CreateUserInput = z.infer<typeof CreateUserSchema>;
 
 export default function Form() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<CreateUserInput>({
+  const form = useForm<CreateUserInput>({
     resolver: zodResolver(CreateUserSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+    },
   });
 
   const trpc = useTRPC();
@@ -33,7 +41,7 @@ export default function Form() {
     trpc.user.create.mutationOptions({
       onSuccess: () => {
         alert("사용자가 성공적으로 등록되었습니다!");
-        reset(); // 폼 초기화
+        form.reset(); // 폼 초기화
       },
       onError: (error) => {
         alert(`오류: ${error.message}`);
@@ -42,33 +50,83 @@ export default function Form() {
   );
 
   const onSubmit = (data: CreateUserInput) => {
+    console.log(`data: ${JSON.stringify(data)}`);
     createUser.mutate(data);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FieldGroup>
-          <Field>
-            <FieldLabel htmlFor="name">Full Name</FieldLabel>
-            <Input {...register("name")} />
-            {errors.name && <FieldError>{errors.name.message}</FieldError>}
-          </Field>
-          <Field>
-            <FieldLabel htmlFor="email">Email</FieldLabel>
-            <Input {...register("email")} />
-            {errors.email && <FieldError>{errors.email.message}</FieldError>}
-          </Field>
-        </FieldGroup>
-        <FieldGroup>
-          <Field>
-            <Button type="submit" disabled={createUser.isPending}>
-              {createUser.isPending ? <Spinner /> : ""}
-              Create User
+      <Card>
+        <CardHeader>
+          <CardTitle>사용자 등록</CardTitle>
+          <CardDescription>
+            Help us improve by reporting bugs you encounter.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form id="create-user-form" onSubmit={form.handleSubmit(onSubmit)}>
+            <FieldGroup>
+              <Controller
+                name="name"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>이름</FieldLabel>
+                    <Input
+                      {...field}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                      placeholder="Login button not working on mobile"
+                      autoComplete="off"
+                    />
+                    <FieldDescription>
+                      Provide a concise title for your bug report.
+                    </FieldDescription>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+              <Controller
+                name="email"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>이메일</FieldLabel>
+                    <Input
+                      {...field}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                      placeholder="Login button not working on mobile"
+                      autoComplete="off"
+                    />
+                    <FieldDescription>
+                      Provide a concise title for your bug report.
+                    </FieldDescription>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+            </FieldGroup>
+          </form>
+        </CardContent>
+        <CardFooter>
+          <Field orientation="horizontal">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => form.reset()}>
+              Reset
+            </Button>
+            <Button type="submit" form="create-user-form">
+              Submit
             </Button>
           </Field>
-        </FieldGroup>
-      </form>
+        </CardFooter>
+      </Card>
     </>
   );
 }

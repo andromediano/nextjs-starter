@@ -11,23 +11,12 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
-//import { UserCreateInputObjectZodSchema } from "@/generated/zod/schemas";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { useTRPC } from "@/trpc/client";
+import { CreateUserSchema } from "@/schemas/user.schema";
 
-const UserCreateInputObjectZodSchema = z.object({
-  name: z
-    .string()
-    .min(3, "Bug title must be at least 5 characters.")
-    .max(32, "Bug title must be at most 32 characters."),
-  email: z
-    .string()
-    .min(10, "Description must be at least 20 characters.")
-    .max(100, "Description must be at most 100 characters."),
-});
-
-type UserFormData = z.infer<typeof UserCreateInputObjectZodSchema>;
+type CreateUserInput = z.infer<typeof CreateUserSchema>;
 
 export default function Form() {
   const {
@@ -35,8 +24,8 @@ export default function Form() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<UserFormData>({
-    resolver: zodResolver(UserCreateInputObjectZodSchema),
+  } = useForm<CreateUserInput>({
+    resolver: zodResolver(CreateUserSchema),
   });
 
   const trpc = useTRPC();
@@ -52,7 +41,7 @@ export default function Form() {
     }),
   );
 
-  const onSubmit = (data: UserFormData) => {
+  const onSubmit = (data: CreateUserInput) => {
     createUser.mutate(data);
   };
 

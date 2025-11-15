@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
@@ -41,17 +42,16 @@ export default function Form() {
   const createUser = useMutation(
     trpc.user.create.mutationOptions({
       onSuccess: () => {
-        alert("사용자가 성공적으로 등록되었습니다!");
-        form.reset(); // 폼 초기화
+        toast("사용자가 성공적으로 등록 되었습니다!");
+        form.reset();
       },
       onError: (error) => {
-        alert(`오류: ${error.message}`);
+        toast.error(`오류: ${error.message}`);
       },
     }),
   );
 
   const onSubmit = (data: CreateUserInput) => {
-    console.log(`data: ${JSON.stringify(data)}`);
     createUser.mutate(data);
   };
 
@@ -116,6 +116,9 @@ export default function Form() {
         </CardContent>
         <CardFooter>
           <Field orientation="horizontal">
+            <Button variant={"outline"} asChild>
+              <Link href={"/users"}>목록</Link>
+            </Button>
             <Button
               type="button"
               variant="outline"
@@ -129,7 +132,6 @@ export default function Form() {
               {createUser.isPending ? <Spinner /> : ""}
               Submit
             </Button>
-            <Link href={"/users"}>목록</Link>
           </Field>
         </CardFooter>
       </Card>

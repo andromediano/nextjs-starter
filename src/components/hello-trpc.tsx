@@ -36,7 +36,6 @@ export default function HelloTrpc() {
       <button
         onClick={() =>
           createUserMutation.mutate({
-            id: "sdlkfsld",
             name: "새 사용자",
             email: "new@example.com",
           })

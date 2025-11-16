@@ -1,38 +1,51 @@
 import { z } from "zod";
 
-import { prisma } from "@/lib/prisma";
 import { CreateUserSchema, UpdateUserSchema } from "@/schemas/user.schema";
-import { router, publicProcedure } from "@/server/trpc";
+import { router, protectedProcedure } from "@/server/trpc";
 
 export const userRouter = router({
-  getById: publicProcedure.input(z.string()).query(async ({ input }) => {
-    return await prisma.user.findFirstOrThrow({
-      where: { id: input },
-    });
+  getById: protectedProcedure
+    .input(z.string())
+    .query(async ({ ctx, input }) => {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      return await ctx.db.user.findFirstOrThrow({
+        where: { id: input },
+      });
+    }),
+
+  list: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.db.user.findMany();
   }),
 
-  list: publicProcedure.query(async () => {
-    return await prisma.user.findMany();
-  }),
-
-  create: publicProcedure
+  create: protectedProcedure
     .input(CreateUserSchema)
-    .mutation(async ({ input }) => {
-      await prisma.user.create({
+    .mutation(async ({ ctx, input }) => {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      await ctx.db.user.create({
         data: input,
       });
     }),
 
-  update: publicProcedure
+  update: protectedProcedure
     .input(UpdateUserSchema)
-    .mutation(async ({ input }) => {
+    .mutation(async ({ ctx, input }) => {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       const { id, email, name } = input;
-      await prisma.user.update({
+      await ctx.db.user.update({
         where: { id },
         data: {
           email,
           name,
         },
       });
+    }),
+
+  delete: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input: userId }) => {
+      await ctx.db.user.delete({
+        where: { id: userId },
+      });
+      return { success: true };
     }),
 });

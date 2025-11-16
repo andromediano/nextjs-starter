@@ -1,4 +1,11 @@
 {
+  "explorer.fileNesting.enabled": false,
+  "explorer.fileNesting.patterns": {
+    ".env": ".env*",
+    "next.config.ts": ".prettierignore, next-env.d.ts, eslint.config.mjs, postcss.config.mjs, prettier.config.mjs, prisma.config.ts, tsconfig.json",
+    "package.json": "pnpm*, .node-version, .npmrc",
+    "pod.yaml": "pod.*.yaml, secret.yaml, secret.*.yaml"
+  },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {

@@ -81,8 +81,8 @@ export default function Form({ userId }: { userId: string }) {
           <CardTitle>사용자 수정</CardTitle>
           <CardDescription>사용자 정보를 불러오는 중...</CardDescription>
         </CardHeader>
-        <CardContent className="flex justify-center py-8">
-          <Spinner />
+        <CardContent>
+          <Spinner className="size-12" />
         </CardContent>
       </Card>
     );

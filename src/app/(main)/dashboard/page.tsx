@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import HelloTrpc from "@/components/hello-trpc";
 
 export default async function Home() {

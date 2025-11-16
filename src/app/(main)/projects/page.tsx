@@ -1,8 +1,10 @@
+import Image from "next/image";
+
+import { Settings, Plus } from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Settings, Plus } from "lucide-react";
-import Image from "next/image";
 
 const projects = [
   {

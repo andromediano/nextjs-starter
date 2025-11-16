@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
+
 import Link from "next/link";
-import { toast } from "sonner";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -25,8 +28,8 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
-import { useTRPC } from "@/trpc/client";
 import { UpdateUserSchema } from "@/schemas/user.schema";
+import { useTRPC } from "@/trpc/client";
 
 type UpdateUserInput = z.infer<typeof UpdateUserSchema>;
 
@@ -110,9 +113,7 @@ export default function Form({ userId }: { userId: string }) {
       <Card>
         <CardHeader>
           <CardTitle>사용자 수정</CardTitle>
-          <CardDescription>
-            사용자 정보를 수정할 수 있습니다.
-          </CardDescription>
+          <CardDescription>사용자 정보를 수정할 수 있습니다.</CardDescription>
         </CardHeader>
         <CardContent>
           <form id="update-user-form" onSubmit={form.handleSubmit(onSubmit)}>

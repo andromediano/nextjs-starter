@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { prisma } from "@/lib/prisma";
 import { CreateUserSchema, UpdateUserSchema } from "@/schemas/user.schema";
 import { router, publicProcedure } from "@/server/trpc";

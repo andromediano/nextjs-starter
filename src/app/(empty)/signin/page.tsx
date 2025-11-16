@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+
 import { LoginForm } from "@/components/signin-form";
 
 export default function Page() {

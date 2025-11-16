@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+
 import { useRouter } from "next/navigation";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircleIcon } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import { authClient } from "@/lib/auth-client";
+
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,6 +29,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
+import { authClient } from "@/lib/auth-client";
 import { SignupUserSchema } from "@/schemas/user.schema";
 
 type SignupUserInput = z.infer<typeof SignupUserSchema>;

@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { toast } from "sonner";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,8 +26,8 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
-import { useTRPC } from "@/trpc/client";
 import { CreateUserSchema } from "@/schemas/user.schema";
+import { useTRPC } from "@/trpc/client";
 
 type CreateUserInput = z.infer<typeof CreateUserSchema>;
 

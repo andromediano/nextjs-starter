@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
+
 import { auth } from "@/lib/auth";
 
 const URI_SIGNIN = process.env.NEXT_PUBLIC_URI_SIGNIN ?? "";

@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import Link from "next/link";
+
 import {
   Calendar,
   Home,
@@ -9,6 +10,7 @@ import {
   Search,
   Settings,
 } from "lucide-react";
+
 import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,

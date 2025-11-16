@@ -1,15 +1,17 @@
 import { ReactNode } from "react";
+
 import { headers } from "next/headers";
+
 import { AppSidebar } from "@/components/app-sidebar";
 import { ModeToggle } from "@/components/mode-toggle";
 import { NavUser } from "@/components/nav-user";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
 import { auth } from "@/lib/auth";
 
 export default async function Layout({ children }: { children: ReactNode }) {

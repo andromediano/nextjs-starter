@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+
 import { notoSansKr, notoSerifKr } from "@/app/styles/fonts";
+
 import { Providers } from "./providers";
+
 import "./globals.css";
 
 export const metadata: Metadata = {

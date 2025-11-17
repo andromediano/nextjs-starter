@@ -30,6 +30,8 @@ import {
 } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/auth-client";
 
+const URI_SIGNIN = process.env.NEXT_PUBLIC_URI_SIGNIN ?? "";
+
 export function NavUser({
   user,
 }: {
@@ -46,13 +48,13 @@ export function NavUser({
       await authClient.signOut({
         fetchOptions: {
           onSuccess: () => {
-            router.push("/signin");
+            router.push(URI_SIGNIN);
           },
         },
       });
     } catch (error) {
       console.error("Logout error:", error);
-      router.push("/signin");
+      router.push(URI_SIGNIN);
     }
   };
 

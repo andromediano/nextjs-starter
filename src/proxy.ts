@@ -18,6 +18,12 @@ export async function proxy(request: NextRequest) {
   const publicRoutes = [URI_SIGNIN, URI_SIGNUP];
 
   if (pathname === "/") {
+    console.debug(`isAuthenticated=${isAuthenticated ? "1" : "2"}`);
+    console.debug(`URI_SIGNIN=${URI_SIGNIN}`);
+    console.debug(
+      "\x1b[1m\x1b[31m⚠\x1b[0m Environment variables validation failed.",
+    );
+
     return isAuthenticated
       ? NextResponse.redirect(new URL(URI_WELCOME, request.url))
       : NextResponse.redirect(new URL(URI_SIGNIN, request.url));

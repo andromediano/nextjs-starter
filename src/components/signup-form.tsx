@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -34,6 +35,7 @@ import { SignupUserSchema } from "@/schemas/user.schema";
 
 type SignupUserInput = z.infer<typeof SignupUserSchema>;
 const URI_WELCOME = process.env.NEXT_PUBLIC_URI_WELCOME ?? "";
+const URI_SIGNIN = process.env.NEXT_PUBLIC_URI_SIGNIN ?? "";
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
   const form = useForm<SignupUserInput>({
@@ -223,7 +225,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
             </Alert>
           )}
           <FieldDescription className="text-center">
-            이미 가입이 되어 있나요? <a href="/signin">로그인</a>
+            이미 가입이 되어 있나요? <Link href={URI_SIGNIN}>로그인</Link>
           </FieldDescription>
         </Field>
       </CardFooter>

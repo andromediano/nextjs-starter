@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -34,6 +35,7 @@ import { cn } from "@/lib/utils";
 import { LoginUserSchema } from "@/schemas/user.schema";
 
 type LoginUserInput = z.infer<typeof LoginUserSchema>;
+const URI_SIGNUP = process.env.NEXT_PUBLIC_URI_SIGNUP ?? "";
 
 export function LoginForm({
   className,
@@ -177,7 +179,7 @@ export function LoginForm({
               </Alert>
             )}
             <FieldDescription className="text-center">
-              회원가입을 안하셨나요? <a href="/signup">회원가입</a>
+              회원가입을 안하셨나요? <Link href={URI_SIGNUP}>회원가입</Link>
             </FieldDescription>
           </Field>
         </CardFooter>

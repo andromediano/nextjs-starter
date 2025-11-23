@@ -1,14 +1,20 @@
 {
+  // 설정파일들이 많아 보기에 불편하다면 파일들을 중첩시킬 수 있다.
   "explorer.fileNesting.enabled": false,
   "explorer.fileNesting.patterns": {
     ".env": ".env*",
-    "next.config.ts": ".prettierignore, next-env.d.ts, eslint.config.mjs, postcss.config.mjs, prettier.config.mjs, prisma.config.ts, tsconfig.json",
+    "next.config.ts": "next-env.d.ts, tsconfig.json, *.config.ts, *.config.js",
     "package.json": "pnpm*, .node-version, .npmrc",
     "pod.yaml": "pod.*.yaml, secret.yaml, secret.*.yaml"
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
-  }
+    "source.fixAll.eslint": "explicit"
+  },
+  // CSS에서 아래와 같은 경고들을 무시한다.
+  //  - Unknown at rule @theme
+  //  - Unknown at rule @apply
+  //  - Unknown at rule @source
+  "css.lint.unknownAtRules": "ignore"
 }

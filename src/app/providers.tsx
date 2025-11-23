@@ -7,9 +7,10 @@
  *  - tRPC는 API 호출 시 세션 토큰을 사용할 수 있고, 클라이언트 설정이 로케일에 의존하지 않으니까 중간에 위치
  *  - 다국어 처리는 주로 UI 렌더링 단계에서 필요하고, 세션이나 API 호출에 직접 의존하지 않는 경우가 많아
  *  - ThemeProvider UI 테마 (가장 안쪽, 다른 provider에 영향 최소)
+ * ❗️ Better Auth는 별도의 Provider를 제공하지 않는다. 그냥 useSession hook을 사용하면 된다.
+ * 내부적으로 상태를 관리하여 처리하기 때문에 여기에도 Provider를 설정하지 않는다.
  */
 //import { NextIntlClientProvider } from "next-intl";
-//import { SessionProvider } from "@repo/auth";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TRPCProvider } from "@/trpc/client";
 
@@ -25,19 +26,17 @@ export function Providers({ children }: { children: React.ReactNode }) {
       </ThemeProvider>
     </TRPCProvider>
     /*
-    <SessionProvider>
-      <TRPCProvider>
-        <NextIntlClientProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange>
-            {children}
-          </ThemeProvider>
-        </NextIntlClientProvider>
-      </TRPCProvider>
-    </SessionProvider>
+    <TRPCProvider>
+      <NextIntlClientProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
+      </NextIntlClientProvider>
+    </TRPCProvider>
     */
   );
 }

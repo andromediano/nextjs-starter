@@ -4,6 +4,7 @@ import nextTs from "eslint-config-next/typescript";
 import prettier from "eslint-config-prettier/flat";
 import importPluginX from "eslint-plugin-import-x";
 
+/** @type {import("eslint").Linter.Config[]} */
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
